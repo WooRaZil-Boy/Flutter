@@ -1,17 +1,10 @@
 import "package:flutter/material.dart";
-import "category.dart";
+
+//import "package:flutter/material.dart" show Container; 
+//위와 같이 사용해 x패키지의 특정한 부분만 가져올 수도 있다.
+//하지만 전체 패키지를 가져오더라도, Flutter가 사용하는 부분만 알아서 최적화하므로 큰 의미는 없다.
+
 import "category_route.dart";
-
-const _padding = EdgeInsets.all(16.0); //underscore는 provate임을 알려준다.
-const _categoryName = 'Cake';
-const _categoryIcon = Icons.cake;
-const _categoryColor = Colors.green;
-//const는 컴파일 타임에 결정되는 상수. 사용되지 않더라도 메모리 공간을 차지하게 된다.
-//final은 런타임에 결정되는 상수. 한 번만 값을 설정할 수 있으며 액세스 될 때 초기화 되어 메모리 공간을 차지하게 된다(lazy).
-
-//Icons은 미리 정의되어 사용할 수 있는 아이콘 데이터들이 있다. 그중 cake를 가져온다.
-//https://docs.flutter.io/flutter/material/Icons-class.html
-
 
 void main() {
   // runApp( //package:flutter/material.dart 를 import 해 오면 사용 가능해 진다.
@@ -32,59 +25,67 @@ void main() {
   runApp(UnitConverterApp());
 }
 
-Widget helloRectangle() { //Widget이 반환형. 인자가 없는 함수
-  return Container(
-    color: Colors.greenAccent,
-  );
-}
+
+
+
+
+// Widget helloRectangle() { //Widget이 반환형. 인자가 없는 함수
+//   return Container(
+//     color: Colors.greenAccent,
+//   );
+// }
 
 //위의 함수를 Stateless class로 바꿔서 아래와 같이 만들어 줄 수 있다.
 
-class HelloRectangle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) { //생성자를 오버라이딩 한다.
-    return Center(
-      child: Container(
-        padding: _padding,
-        color: Colors.greenAccent,
-        height: 400.0,
-        width: 300.0,
-        child: Center(
-          child: Text(
-            "Hello!",
-            style: TextStyle(fontSize: 40.0),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
+// class HelloRectangle extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) { //생성자를 오버라이딩 한다.
+//     return Center(
+//       child: Container(
+//         padding: _padding,
+//         color: Colors.greenAccent,
+//         height: 400.0,
+//         width: 300.0,
+//         child: Center(
+//           child: Text(
+//             "Hello!",
+//             style: TextStyle(fontSize: 40.0),
+//             textAlign: TextAlign.center,
+//           ),
+//         ),
+//       ),
+//     );
 
-    // return container;
-  }
+//     // return container;
+//   }
 
-  var container = Container(
-    color: Colors.purple,
-    width: 300.0,
-    height: 400.0,
-    margin: EdgeInsets.all(16.0),
-    child: Column(
-      children: <Widget>[
-        Text("Hello!"),
-        Text("Hello!"),
-        Text("Hello!"),
-        Text("Hello!"),
-      ],
-    ),
-  );
-  //Flutter에서 모든 것이 Widget이다. Widget에는 StatelessWidget과 StatefulWidget이 있다.
-  //StatelessWidget : immutable. 생성될 때 설정된 값이 변하지 않는다.
-  //StatefulWidget : state를 가지고 있는 Widget
+//   var container = Container(
+//     color: Colors.purple,
+//     width: 300.0,
+//     height: 400.0,
+//     margin: EdgeInsets.all(16.0),
+//     child: Column(
+//       children: <Widget>[
+//         Text("Hello!"),
+//         Text("Hello!"),
+//         Text("Hello!"),
+//         Text("Hello!"),
+//       ],
+//     ),
+//   );
+// }
 
-  //Container는 HTML의 <div>와 같다고 생각하면 된다.
-  //많은 Widget들은 child 혹은 children 프로퍼티를 가지고 있다.
-  //child : 오직 하나의 자식을 추가한다. Padding 등에 사용
-  //children : 다수의 자식을 추가한다. Colum, ListView, Stack 등에 사용
-}
+//Flutter에서 모든 것이 Widget이다. Widget에는 StatelessWidget과 StatefulWidget이 있다.
+//StatelessWidget : immutable. 생성될 때 설정된 값이 변하지 않는다.
+//StatefulWidget : state를 가지고 있는 Widget
+
+//Container는 HTML의 <div>와 같다고 생각하면 된다.
+//많은 Widget들은 child 혹은 children 프로퍼티를 가지고 있다.
+//child : 오직 하나의 자식을 추가한다. Padding 등에 사용
+//children : 다수의 자식을 추가한다. Colum, ListView, Stack 등에 사용
+
+
+
 
 //Android Studio 에서는 Flutter Inspector를 이용할 수 있다. View - Flutter Inspector
 //Chrome의 개발자 모드와 비슷하며, Widget들의 레이아웃과 정보를 쉽게 확인하고 디버그할 수 있다.
@@ -96,7 +97,7 @@ class HelloRectangle extends StatelessWidget {
 
 
 class UnitConverterApp extends StatelessWidget {
-  @override
+  // @override
   // Widget build(BuildContext context) {
   //   return MaterialApp(
   //     debugShowCheckedModeBanner: false,
@@ -113,10 +114,21 @@ class UnitConverterApp extends StatelessWidget {
   //     ),
   //   );
   // }
+  
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Unit Converter",
+      theme: ThemeData( //테마 위젯을 구성한다.
+        fontFamily: "Raleway", //전체 폰트 설정
+        textTheme: Theme.of(context).textTheme.apply(
+          bodyColor: Colors.black,
+          displayColor: Colors.grey[600],
+        ),
+        primaryColor: Colors.grey[500],
+        textSelectionHandleColor: Colors.green[500],
+      ),
       home: CategoryRoute(),
     );
   }
@@ -131,3 +143,12 @@ class UnitConverterApp extends StatelessWidget {
 
 
 
+//패키지가 업데이트 되면(pubspec.yaml의 내용이 수정된 후), Terminal에서 flutter packages get을 입력하면 자동으로 업데이트 한다.
+
+
+
+
+//asset은 따로 폴더 내에서 관리해 주는 것이 좋다. 이후, pubspec.yaml의 assets에서 해당 파일들의 경로를 입력해 주면 된다.
+//아이콘이나 이미지도 같은 식으로 asset에 넣어주고, Image로 가져오면 된다.
+
+//폰트는 asset과 같은 식으로 해서 pubspec.yaml의 fonts 항목에 넣어주면 된다. Fontfamily로 가져온다.
