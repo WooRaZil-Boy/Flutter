@@ -9,25 +9,16 @@
 import UIKit
 import Flutter
 
-
-
 public class FlutterView: NSObject, FlutterPlatformView {
-    let frame: CGRect
-    let viewId: Int64
-    
-    init(_ frame: CGRect, viewId: Int64, args: Any?) {
-        self.frame = frame
-        self.viewId = viewId
-    }
-    
     public func view() -> UIView {
-        return UISlider(frame: frame)
+        let tempView = TempView()
+        return tempView
     }
 }
 
 public class FlutterViewFactory: NSObject, FlutterPlatformViewFactory {
     public func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        return FlutterView(frame, viewId:viewId, args: args)
+        return FlutterView()
     }
 }
 
