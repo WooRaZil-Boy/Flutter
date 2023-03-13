@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'fooderlich_theme.dart';
 
+import '../fooderlich_theme.dart';
 import 'circle_image.dart';
 
 class AuthorCard extends StatefulWidget {
@@ -16,11 +16,10 @@ class AuthorCard extends StatefulWidget {
   });
 
   @override
-  State<AuthorCard> createState() => _AuthorCardState();
+  AuthorCardState createState() => AuthorCardState();
 }
 
-// 상태 클래스에는 위젯의 수명 동안 변경될 수 있는 변경 가능한 데이터가 저장됩니다.
-class _AuthorCardState extends State<AuthorCard> {
+class AuthorCardState extends State<AuthorCard> {
   bool _isFavorited = false;
 
   @override
@@ -53,12 +52,10 @@ class _AuthorCardState extends State<AuthorCard> {
             ],
           ),
           IconButton(
-            // true이면 하트가 채워진 상태로 표시됩니다. false이면 윤곽이 그려진 하트가 표시됩니다.
             icon: Icon(_isFavorited ? Icons.favorite : Icons.favorite_border),
             iconSize: 30,
             color: Colors.red[400],
             onPressed: () {
-              // 사용자가 IconButton을 누르면 setState() 호출을 통해 _isFavorited 상태를 토글합니다.
               setState(() {
                 _isFavorited = !_isFavorited;
               });
