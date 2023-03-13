@@ -1,0 +1,42 @@
+name: fooderlich
+description: a social recipe app to keep track of new dishes, and share with friends.
+
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.5 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^3.0.1
+  provider: ^6.0.3
+  flutter_colorpicker: ^1.0.3
+  intl: ^0.17.0
+  uuid: ^3.0.6
+  # 페이지를 스크롤할때, indicator를 표시합니다다.
+  smooth_page_indicator: ^1.0.0+2
+  # webview 위젯
+  webview_flutter: ^3.0.4
+  # URL을 실행하는 데 도움이 되는 크로스 플랫폼 라이브러리입니다.
+  url_launcher: ^6.1.5
+  # shared_preferences: 간단한 데이터를 위한 플랫폼별 persistencce storage를 래핑합니다.
+  shared_preferences: ^2.0.15
+  # 라우터 API의 복잡성을 줄이기 위해 만들어진 패키지입니다. 개발자가 선언적 탐색을 쉽게 구현할 수 있도록 도와줍니다.
+  go_router: ^4.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/food_pics/
+    - assets/magazine_pics/
+    - assets/sample_data/
+    - assets/profile_pics/
+    - assets/fooderlich_assets/
