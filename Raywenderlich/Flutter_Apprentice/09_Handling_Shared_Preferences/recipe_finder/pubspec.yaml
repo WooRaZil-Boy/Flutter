@@ -1,0 +1,37 @@
+name: recipes
+description: Recipe Finder
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.5
+  # 앱에서 사용할 이미지를 다운로드하여 캐시합니다.
+  cached_network_image: ^3.2.2
+  # 사용자가 카드를 좌우로 밀어서 저장된 레시피 삭제와 같은 다양한 작업을 수행할 수 있는 위젯을 빌드합니다.
+  flutter_slidable: ^2.0.0
+  # 플랫폼별 정보에 액세스합니다.
+  platform: ^3.1.0
+  # 프로그램을 사용하여 벡터 파일로 변환할 필요 없이 SVG 이미지를 로드합니다.
+  flutter_svg: ^1.1.4
+  shared_preferences: ^2.0.15
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/recipes1.json
+    - assets/recipes2.json
+    - assets/images/
