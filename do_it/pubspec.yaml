@@ -32,6 +32,9 @@ dependencies:
     sdk: flutter
   font_awesome_flutter: ^10.1.0
   intl: ^0.17.0
+  json_annotation: ^4.5.0
+  http: ^0.13.4
+  dio: ^4.0.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -48,6 +51,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.1.11
+  json_serializable: ^6.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
