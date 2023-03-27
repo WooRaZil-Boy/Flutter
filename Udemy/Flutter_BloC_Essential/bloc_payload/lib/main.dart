@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       // Builder로 감싸게 되면, context는 Builder 보다 부모의 context가 되므로, BlocProvider를 찾을 수 있다.
       // Builder 클래스는 내부 위젯들을 새로운 위젯으로 강제적으로 만들며 그 부모의 context로 접근 가능하게 만들어 준다. 
       // 이 외의 해결방법으로 아예 따로 Widget 클래스를 생성해 줄 수 있다.
+      // 여기서는 단순히 BlocBuilder를 사용해도 된다.
       child: Builder(
         builder: (context) {
           return MaterialApp(
