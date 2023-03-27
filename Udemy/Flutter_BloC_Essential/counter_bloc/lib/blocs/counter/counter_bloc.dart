@@ -15,7 +15,6 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
 
     on<DecrementCounterEvent>(_decrementCounter);
   }
-
   // handler가 복잡해질 경우 아래와 같이 따로 메서드를 작성할 수 있다.
   void _decrementCounter(
     DecrementCounterEvent event,
