@@ -10,14 +10,14 @@ enum Filter {
   complted,
 }
 
-class TODO extends Equatable {
+class Todo extends Equatable {
   final String id;
   final String desc;
   final bool completed;
 
   // 새 객체를 생성/기존 객체를 수정 할 수 있기 때문에 id가 nullable이다.
   // 또한 편의를 위해 completed를 false로 기본값 설정한다.
-  TODO({
+  Todo({
     String? id,
     required this.desc,
     this.completed = false
