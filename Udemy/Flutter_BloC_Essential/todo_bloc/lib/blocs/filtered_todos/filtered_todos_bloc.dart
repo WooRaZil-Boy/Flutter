@@ -66,7 +66,7 @@ class FilteredTodosBloc extends Bloc<FilteredTodosEvent, FilteredTodosState> {
       _filteredTodos = _filteredTodos
         .where((Todo todo) => todo.desc
           .toLowerCase()
-          .contains(todoSearchBloc.state.searchTerm)
+          .contains(todoSearchBloc.state.searchTerm.toLowerCase())
         )
         .toList();
     }

@@ -40,7 +40,7 @@ class FilteredTodosCubit extends Cubit<FilteredTodosState> {
       _filteredTodos = _filteredTodos
         .where((Todo todo) => todo.desc
           .toLowerCase()
-          .contains(searchTerm)
+          .contains(searchTerm.toLowerCase())
         )
         .toList();
     }
