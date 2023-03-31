@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
@@ -7,7 +6,7 @@ Uuid uuid = Uuid();
 enum Filter {
   all,
   active,
-  complted,
+  completed,
 }
 
 class Todo extends Equatable {

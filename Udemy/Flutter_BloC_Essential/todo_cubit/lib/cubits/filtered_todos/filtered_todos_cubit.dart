@@ -13,16 +13,18 @@ class FilteredTodosCubit extends Cubit<FilteredTodosState> {
   late StreamSubscription todoFilterSubscription;
   late StreamSubscription todoSearchSubscription;
   late StreamSubscription todoListSubscription;
+  final List<Todo> initialTodos;
   // 세 cubit에 대한 값이 필요하므로 listen 해야 한다.
   final TodoFilterCubit todoFilterCubit;
   final TodoSearchCubit todoSearchCubit;
   final TodoListCubit todoListCubit;
 
   FilteredTodosCubit({
+    required this.initialTodos,
     required this.todoFilterCubit,
     required this.todoSearchCubit,
     required this.todoListCubit,
-  }) : super(FilteredTodosState.initial()) {
+  }) : super(FilteredTodosState(filteredTodos: initialTodos)) {
     // listen은 등록 이후 다음 cubit의 값을 읽는다.
     todoFilterSubscription = todoFilterCubit.stream.listen((TodoFilterState todoFilterState) {
       setFilteredTodos();
@@ -46,7 +48,7 @@ class FilteredTodosCubit extends Cubit<FilteredTodosState> {
           .where((Todo todo) => !todo.completed)
           .toList();
         break;
-      case Filter.complted:
+      case Filter.completed:
           _filteredTodos = todoListCubit.state.todos
           .where((Todo todo) => todo.completed)
           .toList();

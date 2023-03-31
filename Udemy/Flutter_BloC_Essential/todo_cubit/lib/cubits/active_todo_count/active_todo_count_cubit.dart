@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -16,11 +15,15 @@ class ActiveTodoCountCubit extends Cubit<ActiveTodoCountState> {
   // ActiveTodoCountState를 계산하려면, TodoList 자체를 inspect해야 한다(TodoList 항목들의 completed가 t/f 인지 확인해야 한다).
   // 즉, ActiveTodoCountCubit은 TodoListState의 값이 필요하다. 따라서 ActiveTodoCountCubit은 TodoListCubit을 listen 해야 한다.
   late final StreamSubscription todoListSubscription;
+  final int initialActiveTodoCount;
   final TodoListCubit todoListCubit;
   
   ActiveTodoCountCubit({
+    // initialActiveTodoCount를 받지 않고, ActiveTodoCountState의 factory constructor에 
+    // activeTodoCount의 값으로 TodoListState의 todos length를 줄 수도 있다.
+    required this.initialActiveTodoCount,
     required this.todoListCubit,
-  }) : super(ActiveTodoCountState.initial()) {
+  }) : super(ActiveTodoCountState(activeTodoCount: initialActiveTodoCount)) {
     // listen은 등록 시점 이후, 즉 다음 cubit stream의 값을 읽는다.
     todoListSubscription = todoListCubit.stream.listen((TodoListState todoListState) {
       print('todoListState: $todoListState');
