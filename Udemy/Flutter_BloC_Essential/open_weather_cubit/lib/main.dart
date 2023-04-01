@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'pages/home_page.dart';
 
 void main() async {
+  // 환경 변수에서 API 키를 가져온다.
   await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
