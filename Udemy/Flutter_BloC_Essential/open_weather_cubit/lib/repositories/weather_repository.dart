@@ -26,8 +26,6 @@ class WeatherRepository {
         country: directGeocoding.country
       );
 
-      print('weather: $weather');
-
       return weather;
     } on WeatherException catch (e) {
       // WeatherException 인 경우
