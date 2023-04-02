@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "410377860705",
+    "project_id": "fb-auth-bloc-202304030046",
+    "storage_bucket": "fb-auth-bloc-202304030046.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410377860705:android:a4ba9050f0f7afcb7d5c20",
+        "android_client_info": {
+          "package_name": "com.example.fb_auth_bloc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410377860705-doem0agh8lnv0mnhcqi3ubkmq9ic5ei6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAOazpaf_nS0yqYVUkenpRzvKwn4mUF2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410377860705-doem0agh8lnv0mnhcqi3ubkmq9ic5ei6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
