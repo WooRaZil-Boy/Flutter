@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "6f0ba70bd3af3c44c80039e053141843d9e31bca9da59423b58c5796a9bad732"
+build_start_time: [1679917213, 335129022]
+build_end_time: [1679917213, 416283130]
+inputs:
+  "/Users/youngho/Desktop/Flutter/Udemy/Flutter_BloC_Essential/cubit_payload/macos/Flutter/GeneratedPluginRegistrant.swift": !private [1679917195, 959114074]
+  "/Users/youngho/Desktop/Flutter/Udemy/Flutter_BloC_Essential/cubit_payload/macos/Runner/AppDelegate.swift": !private [1678307504, 0]
+  "/Users/youngho/Desktop/Flutter/Udemy/Flutter_BloC_Essential/cubit_payload/macos/Runner/MainFlutterWindow.swift": !private [1678307504, 0]

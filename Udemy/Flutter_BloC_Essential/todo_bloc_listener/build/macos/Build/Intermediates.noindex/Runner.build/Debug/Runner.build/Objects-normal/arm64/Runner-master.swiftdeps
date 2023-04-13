@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "f9df1fab977b64a30092e7b5dd67d5c27281ee07a6271294082c3d82ca6a426c"
+build_start_time: [1680267528, 71210861]
+build_end_time: [1680267536, 102488040]
+inputs:
+  "/Users/youngho/Desktop/Flutter/Udemy/Flutter_BloC_Essential/todo_bloc_listener/macos/Flutter/GeneratedPluginRegistrant.swift": [1680267508, 346072196]
+  "/Users/youngho/Desktop/Flutter/Udemy/Flutter_BloC_Essential/todo_bloc_listener/macos/Runner/AppDelegate.swift": [1678307504, 0]
+  "/Users/youngho/Desktop/Flutter/Udemy/Flutter_BloC_Essential/todo_bloc_listener/macos/Runner/MainFlutterWindow.swift": [1678307504, 0]
