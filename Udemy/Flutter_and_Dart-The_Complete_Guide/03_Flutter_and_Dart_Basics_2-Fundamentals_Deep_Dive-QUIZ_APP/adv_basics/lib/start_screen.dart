@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class StartScreen extends StatelessWidget {
   // 생성자에도 const를 추가할 수 있다.
-  const StartScreen({super.key});
+  // 인수와 반환값이 없는 함수를 인수로 받는다.
+  const StartScreen(this.startQuiz, {super.key});
+
+  final void Function() startQuiz;
 
   // Widget에는 build 메서드가 필수로 있어야 하고, context인수를 받아 Widget을 반환한다.
   @override
@@ -35,7 +38,8 @@ class StartScreen extends StatelessWidget {
           const SizedBox(height: 30),
           // 아이콘이 추가된 버튼을 사용하려면, 단순히 생성자를 수정하면 된다.
           OutlinedButton.icon(
-            onPressed: () {},
+            // 인수로 받은 함수를 그대로 실행할 수 있다. tear-off
+            onPressed: startQuiz,
             // 설정하는 버튼을 그대로 사용하여 styleFrom을 지정한다. 스타일을 좀 더 쉽게 적용할 수 있다.
             style: OutlinedButton.styleFrom(
               foregroundColor: Colors.white,
