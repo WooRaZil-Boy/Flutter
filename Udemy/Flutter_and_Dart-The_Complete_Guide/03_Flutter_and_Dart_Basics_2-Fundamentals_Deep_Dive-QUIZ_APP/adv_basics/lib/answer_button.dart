@@ -31,7 +31,10 @@ class AnswerButton extends StatelessWidget {
         ),
       ),
       // answerText는 해당 위젯 외부에서 전달된 변수 이기 때문에 더이상 const를 사용할 수 없다.
-      child: Text(answerText),
+      child: Text(
+        answerText,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }
