@@ -74,7 +74,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             // 따라서 ...을 사용해 리스트를 펼친다.
             // 각각 AnswerButton를 따로 생생할 필요 없이 코드가 깔끔해 진다. 하드코딩 대신 동적으로 위젯이 생성된다.
             // suffle을 한 후 mapping을 한다. 로직은 달라지지 않는다.
-            ...currentQuestion.getShuffledAnswers().map((answer) {
+            ...currentQuestion.shuffledAnswers.map((answer) {
               // 객체는 dart의 일반 적인 값일 뿐이다.
               return AnswerButton(
                 answerText: answer,

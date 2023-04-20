@@ -10,7 +10,9 @@ class QuizQuestion {
 
   // 리스트의 순서를 섞기 위해서는 단순히 List에 shuffle을 사용하면 된다. 하지만, shuffle은 기존의 리스트를 바꾼다.
   // 여기서는 기존의 리스트를 수정하지 않고 싶기 때문에 리스트를 복사한 다음 shuffle을 사용한다.
-  List<String> getShuffledAnswers() {
+  // getter를 사용할 수도 있다.
+  // List<String> getShuffledAnswers() {
+  List<String> get shuffledAnswers {
     // of를 사용하면 해당 리스트에 기반한 새로운 리스트를 생성한다.
     // shuffle은 따로 목록을 반환하지 않고 기존의 리스트를 섞는다.
 

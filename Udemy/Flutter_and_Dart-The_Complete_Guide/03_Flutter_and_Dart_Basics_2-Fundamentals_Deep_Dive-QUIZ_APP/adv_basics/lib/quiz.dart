@@ -12,6 +12,7 @@ class Quiz extends StatefulWidget {
   State<Quiz> createState() => _QuizState();
 }
 
+// 밑줄을 사용하면, 해당 파일 안에서만 private 하다.
 class _QuizState extends State<Quiz> {
   // 어떤 화면이 현재 보이는 지를 관리하기 때문에 결과 화면을 보여주는 곳이기도 해야 한다.
   // 또한, 선택한 답변을 저장하기 위한 곳이기도 하다. 질문과 답변을 선택한 곳에서 접근할 수 있기 때문이다.
@@ -19,7 +20,7 @@ class _QuizState extends State<Quiz> {
   // 사용자가 답변한 목록을 관리한다. 처음엔 빈 리스트이지만, 사용자가 답변을 선택하면 답변이 추가된다.
   // 또한, 내부의 요소들이 추가될 뿐 변수 자체를 재할당 하는 것은 아니므로 final을 사용할 수 있다.
   // 하지만, 아예 빈 리스트로 재할당하려면 var로 써야 한다.
-  List<String> selectedAnswers = [];
+  List<String> _selectedAnswers = [];
 
   // 위젯도 객체일 뿐이므로 할당할 수 있다.
   // 타입을 Widget으로 명시해 줘야 다른 Widget 타입을 할당할 수 있다. var로 선언하면 해당 위젯 타입이 추론 된다.
@@ -43,12 +44,11 @@ class _QuizState extends State<Quiz> {
 
   void chooseAnswer(String answer) {
     // 메모리에 있는 리스트 객체에 접근하여 아에팀을 추가한다. 변수를 재할당하는 것이 아니라 메모리에 있는 기존 리스트를 수정하는 것이기 때문에 final을 사용할 수 있다.
-    selectedAnswers.add(answer);
+    _selectedAnswers.add(answer);
 
     // 선택한 답변을 저장하므로, 질문이 다 떨어졌는지 알 수 있다.
-    if (selectedAnswers.length == questions.length) {
+    if (_selectedAnswers.length == questions.length) {
       setState(() {
-        selectedAnswers = [];
         activeScreen = 'results-screen';
       });
     }
@@ -67,6 +67,13 @@ class _QuizState extends State<Quiz> {
   //   // 부모 클래스에서도 초기화 해야 하므로, super.initState()를 호출해야 한다.
   //   super.initState();
   // }
+
+  void restartQuiz() {
+    setState(() {
+      _selectedAnswers = [];
+      activeScreen = 'questions-screen';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +96,8 @@ class _QuizState extends State<Quiz> {
     // 모든 질문에 답하여, activeScreen이 'results-screen'이 되면, ResultsScreen을 보여준다.
     if (activeScreen == 'results-screen') {
       screenWidget = ResultsScreen(
-        chosenAnswers: selectedAnswers,
+        chosenAnswers: _selectedAnswers,
+        onRestart: restartQuiz,
       );
     }
 
