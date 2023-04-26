@@ -27,10 +27,37 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  // 해당 메서드는 동적으로 새로운 UI 요소를 추가한다. 실행될 때 마다 새로운 UI 요소를 생성한다.
+  void _openAddExpenseOverlay() {
+    // State의 context를 사용할 수 있다.
+    // context는 위젯 트리에서 현재 위치를 나타내는 객체로 메타 데이터의 컬렉션으로 생각할 수 있다.
+    // builder인수에는 기본적으로 값을 갖는 함수를 제공해야 한다. 이 함수는 새로운 위젯을 반환한다.
+    // 여기서의 ctx는 컨텍스트를 나타내지만, State의 context와는 다르다.
+    // showModalBottomSheet를 사용하면, 백그라운드를 탭하여 해당 ModalBottomSheet를 자연스럽게 닫을 수 있다.
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => const Text('Modal bottom sheet'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // 일반적으로 Scaffold을 사용하여 앱의 기본 레이아웃을 구성한다.
     return Scaffold(
+      // Row로 Add 버튼이 있는 Toolbar를 생성할 수 있다. 하지만 Scaffold의 AppBar를 사용하는 것이 더 좋다.
+      // appBar는 PreferredSizeWidget을 받는다. 특정 종류의 위젯만 사용한다. 보통 AppBar를 사용한다.
+      // AppBar를 사용하면, 콘텐츠가 화면의 가장자리에 맞추어 배치되며 카메라 statusBar등의 필요한 공간을 자동으로 계산한다.
+      appBar: AppBar(
+        title: const Text('Flutter ExpensesTracker'),
+        // actions로 AppBar에 버튼을 추가한다.
+        actions: [
+          IconButton(
+            // tear-off를 사용하여, ()없이 메서드를 호출할 수 있다.
+            onPressed: _openAddExpenseOverlay,
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           const Text('The chart!'),

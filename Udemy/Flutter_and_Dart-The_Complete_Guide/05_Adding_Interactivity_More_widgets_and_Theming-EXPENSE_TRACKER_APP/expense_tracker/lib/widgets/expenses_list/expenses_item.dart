@@ -36,10 +36,11 @@ class ExpenseItem extends StatelessWidget {
                 // 별도의 그룹핑을 위해 Row를 추가한다.
                 Row(
                   children: [
-                    const Icon(Icons.alarm),
+                    // enum의 case 값을 String으로 사용할 수 있다. 동적으로 생성되기 때문에 const는 사용할 수 없다.
+                    Icon(categoryIcons[expense.category]),
                     const SizedBox(width: 8),
-                    // 날짜를 String으로 캐스팅해 표현한다.
-                    Text(expense.date.toString()),
+                    // 날짜를 String으로 캐스팅해 표현한다. getter를 사용하므로 ()를 사용하지 않는다.
+                    Text(expense.formattedDate),
                   ],
                 ),
               ],

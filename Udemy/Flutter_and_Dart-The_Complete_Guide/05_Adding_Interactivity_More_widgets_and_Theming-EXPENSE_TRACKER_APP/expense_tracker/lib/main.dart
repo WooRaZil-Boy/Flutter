@@ -3,8 +3,10 @@ import 'package:expense_tracker/widgets/expenses.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
-      home: Expenses(),
+    MaterialApp(
+      // Material3를 사용한다.
+      theme: ThemeData(useMaterial3: true),
+      home: const Expenses(),
     ),
   );
 }

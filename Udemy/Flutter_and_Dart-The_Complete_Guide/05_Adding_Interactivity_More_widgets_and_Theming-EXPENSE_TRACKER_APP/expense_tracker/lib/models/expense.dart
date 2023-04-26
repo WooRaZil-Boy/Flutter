@@ -1,4 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
+
+// intl 패키지는 지역화 패키지 이지만, 여기서는 날짜를 형식화하기 위해 사용한다.
+final formatter = DateFormat.yMd();
 
 // uuid 생성 자체는 Expense에 국한된 것이 아니기 때문에 Expense 외부에서 생성한다.
 const uuid = Uuid();
@@ -7,6 +12,14 @@ const uuid = Uuid();
 // 따라서 여기서는 enum을 사용한다. enum은 정해진 값만을 가질 수 있도록 제한한다.
 // enum의 case는 문자열이 아니지만, Dart는 이 값들을 문자열로 변환할 수 있다.
 enum Category { food, trvel, leisure, work}
+
+// 맵과 셋은 {}를 사용하여 선언한다.
+const categoryIcons = {
+  Category.food: Icons.lunch_dining,
+  Category.trvel: Icons.flight_takeoff,
+  Category.leisure: Icons.movie,
+  Category.work: Icons.work,
+};
 
 // Data Model 클래스를 작성한다. 한 항목의 비용을 설명한다.
 class Expense {
@@ -18,6 +31,12 @@ class Expense {
   final DateTime date;
   // 범주 별로 차트를 그린다. 
   final Category category;
+
+  // 메서드 대신 getter를 사용하여 계산된 값을 반환한다.
+  // getter는 메서드와 비슷하지만, 호출할 때 괄호를 사용하지 않는다.
+  String get formattedDate {
+    return formatter.format(date);
+  }
 
   // 객체의 멤머가 많아질 수록, 생성자에서 인자를 빼먹거나 순서를 헤깔릴 수 있다.
   // 이런 경우에는 required로 인자를 명시해 주는 것이 좋다. 해당 인자가 자동완성되며 순서에 영향받지 않는다.
