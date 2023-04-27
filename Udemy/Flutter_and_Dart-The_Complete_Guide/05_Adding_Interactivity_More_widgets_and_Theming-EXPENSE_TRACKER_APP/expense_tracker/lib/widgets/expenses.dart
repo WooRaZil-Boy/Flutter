@@ -1,5 +1,6 @@
 import 'package:expense_tracker/widgets/expenses_list/expenses_list.dart';
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
 
 // 경비를 관리하고 추가할 수 있어야 하기 때문에 StatefulWidget이어야 한다.
@@ -36,7 +37,7 @@ class _ExpensesState extends State<Expenses> {
     // showModalBottomSheet를 사용하면, 백그라운드를 탭하여 해당 ModalBottomSheet를 자연스럽게 닫을 수 있다.
     showModalBottomSheet(
       context: context,
-      builder: (ctx) => const Text('Modal bottom sheet'),
+      builder: (ctx) => const NewExpense(),
     );
   }
 
