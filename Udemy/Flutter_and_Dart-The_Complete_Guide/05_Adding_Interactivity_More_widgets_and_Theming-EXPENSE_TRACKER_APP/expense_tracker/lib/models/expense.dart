@@ -11,12 +11,12 @@ const uuid = Uuid();
 // category를 String으로 선언하면, 임의의 문자열이 모두 유효하므로 오타가 발생해도 알아차리기 힘들다.
 // 따라서 여기서는 enum을 사용한다. enum은 정해진 값만을 가질 수 있도록 제한한다.
 // enum의 case는 문자열이 아니지만, Dart는 이 값들을 문자열로 변환할 수 있다.
-enum Category { food, trvel, leisure, work}
+enum Category { food, travel, leisure, work}
 
 // 맵과 셋은 {}를 사용하여 선언한다.
 const categoryIcons = {
   Category.food: Icons.lunch_dining,
-  Category.trvel: Icons.flight_takeoff,
+  Category.travel: Icons.flight_takeoff,
   Category.leisure: Icons.movie,
   Category.work: Icons.work,
 };
