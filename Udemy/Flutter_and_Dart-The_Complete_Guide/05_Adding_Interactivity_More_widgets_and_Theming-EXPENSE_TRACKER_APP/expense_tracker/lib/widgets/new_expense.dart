@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 // 내부 상태를 관리해야 하기 때문에 StatefulWidget이어야 한다.
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  // 새로운 Expense를 추가할 함수를 받는다.
+  const NewExpense({super.key, required this.onAddExpense});
+
+  final void Function(Expense expense) onAddExpense;
 
   @override
   State<NewExpense> createState() => _NewExpenseState();
@@ -65,6 +68,52 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _submitExpenseData() {
+    // 문자열을 숫자로 변환한다. 변환에 실패하면 null이 반환된다.
+    final enteredAmount = double.tryParse(_amountController.text);
+    // 값이 유효한지 확인한다. 숫자로 변환할 수 없거나 0과 같거나 작은 경우, 유효하지 않다.
+    // 두 조건 중 하나 이상이 참이라면 유효하지 않은 값이 된다.
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+
+    // trim을 사용하면 문자열 앞뒤의 공백을 제거한다. 문자열 사이의 공백은 제거하지 않는다.
+    // 조건들을 모두 비교하여 하나라도 유효하지 않으면 에러 메시지를 노출한다.
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Invalid input'),
+          content: const Text('Please make sure a valud title, amount, date and category was entered.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // 해당 Alert에 연결된 context를 전달해야 한다.
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            )
+          ],
+        ),
+      );
+      return;
+    }
+
+    // state에서 widget에 접근할 수 있다.
+    // submit을 하는 순간, widget의 onAddExpense 함수를 호출하고, 이는 expenses의 _addExpense를 호출하여 위젯을 업데이트하게 된다.
+    widget.onAddExpense(
+      Expense(
+        title: _titleController.text,
+        amount: enteredAmount,
+        // 유효성 검사를 이미 했으므로, null이 아님을 알 수 있다.
+        date: _selectedDate!,
+        category: _selectedCategory,
+      ),
+    );
+    // 여기서는 전체 위젯의 context이다.
+    Navigator.pop(context);
+  }
+
   @override
   void dispose() {
     // 하지만, TextEditingController를 사용하면, 위젯을 더 이상 사용하지 않을 때 반드시 dispose를 호출해 메모리 누수를 방지해야 한다.
@@ -77,7 +126,8 @@ class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      // 상단 status bar와 카메라를 고려하여 padding을 추가한다.
+      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
       // 지금은 스크롤이 필요하지 않고, 항목을 동적으로 생성할 필요도 없기 때문에 ListView 대신 Column을 사용한다.
       child: Column(
         children: [
@@ -145,17 +195,17 @@ class _NewExpenseState extends State<NewExpense> {
                 // 열거형은 name으로 해당 case의 이름을 String으로 가져올 수 있다.
                 // map의 반환형은 Iterable이므로, toList를 사용해 리스트로 변경해야 한다.
                 items: Category.values
-                  .map(
-                    (category) => DropdownMenuItem(
-                      // value는 사용자에게 보여지지 않는 내부적으로 저장되는 값이다. 사용자가 드랍다운에서 해당 아이템을 선택하는 순간 해당 값이 보내지게 된다.
-                      // Object? 유형을 받으므로 열거형 값 그대로 value에 설정할 수 있다.
-                      value: category,
-                      child: Text(
-                        category.name.toUpperCase(),
+                    .map(
+                      (category) => DropdownMenuItem(
+                        // value는 사용자에게 보여지지 않는 내부적으로 저장되는 값이다. 사용자가 드랍다운에서 해당 아이템을 선택하는 순간 해당 값이 보내지게 된다.
+                        // Object? 유형을 받으므로 열거형 값 그대로 value에 설정할 수 있다.
+                        value: category,
+                        child: Text(
+                          category.name.toUpperCase(),
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
+                    )
+                    .toList(),
                 onChanged: (value) {
                   // 사용자가 드롭다운에서 아이템을 하지 않으면 null이 반환되어 바로 종료한다.
                   if (value == null) {
@@ -177,13 +227,10 @@ class _NewExpenseState extends State<NewExpense> {
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
-                onPressed: () {
-                  // 버튼을 눌렀을 때 입력한 최신 값을 가져온다.
-                  // print(_enteredTitle);
-                  // TextEditingController를 사용하면, 직접 입력값을 저장하고 있을 필요가 없다.
-                  print(_titleController.text);
-                  print(_amountController.text);
-                },
+                // 버튼을 눌렀을 때 입력한 최신 값을 가져온다.
+                // print(_enteredTitle);
+                // TextEditingController를 사용하면, 직접 입력값을 저장하고 있을 필요가 없다.
+                onPressed: _submitExpenseData,
                 child: const Text('Save Expense'),
               ),
             ],

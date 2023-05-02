@@ -12,7 +12,7 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  // 더미 데터ㄹ 생성한다. List는 final로 할당하더라도 내부 아이템의 값은 변경 가능하다.
+  // 더미 데이터 생성한다. List는 final로 할당하더라도 내부 아이템의 값은 변경 가능하다.
   final List<Expense> _registeredExpenses = [
     Expense(
       title: "Flutter Course",
@@ -36,9 +36,19 @@ class _ExpensesState extends State<Expenses> {
     // 여기서의 ctx는 컨텍스트를 나타내지만, State의 context와는 다르다.
     // showModalBottomSheet를 사용하면, 백그라운드를 탭하여 해당 ModalBottomSheet를 자연스럽게 닫을 수 있다.
     showModalBottomSheet(
+      // isScrollControlled을 true로 하면, 모듈 오버레이가 사용 가능한 모든 높이를 차지하게 된다. 키보드가 겹치는 걸 방지할 수 있다.
+      // 하지만, 이는 status bar와 카메라를 포함한 모든 공간을 차지 하므로, new_expense에 padding을 추가해 준다.
+      isScrollControlled: true,
       context: context,
-      builder: (ctx) => const NewExpense(),
+      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
     );
+  }
+
+  void _addExpense(Expense expense) {
+    setState(() {
+      // 새로운 항목을 추가하고, 화면을 다시 그린다.
+      _registeredExpenses.add(expense);
+    });
   }
 
   @override
