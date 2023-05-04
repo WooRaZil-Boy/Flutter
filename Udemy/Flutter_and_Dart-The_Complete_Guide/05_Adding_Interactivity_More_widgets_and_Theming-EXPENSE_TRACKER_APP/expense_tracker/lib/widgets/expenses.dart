@@ -51,8 +51,52 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
+  void _removeExpense(Expense expense) {
+    // 해당 expense의 index를 찾는다.
+    final expenseIndex = _registeredExpenses.indexOf(expense);
+
+    setState(() {
+      // 해당 항목을 제거하고, 화면을 다시 그린다.
+      _registeredExpenses.remove(expense);
+    });
+
+    // 한 번에 여러 항목을 동시에 제거하면, 스낵바가 아직 사라지지 않은 상태이기 때문에, 이전 스낵바가 dismiss 될 때까지 기다렸다가 노출된다.
+    // 따라서 스낵바가 열릴 때, 이전의 스낵바를 먼저 제거해 주도록 한다.
+    ScaffoldMessenger.of(context).clearSnackBars();
+
+    // 실수로 목록의 아이템을 삭제한 경우, 다시 복구할 수 있도록 한다.
+    // State 클래스에 기반한 것이기에, 해당 클래스의 context를 넘겨준다.
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Expense deleted.'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              // 제거한 항목을 이전의 위치에 다시 추가해야 하기 때문에 add가 아닌 insert를 사용해야 한다.
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    // 목록이 비었을 경우, 보여줄 위젯을 생성한다.
+    Widget mainContent = const Center(
+      child: Text('No expenses founds. Start adding some!'),
+    );
+
+    if (_registeredExpenses.isNotEmpty) {
+      mainContent = ExpensesList(
+        expenses: _registeredExpenses, 
+        onRemoveExpense: _removeExpense
+      );
+    }
+
     // 일반적으로 Scaffold을 사용하여 앱의 기본 레이아웃을 구성한다.
     return Scaffold(
       // Row로 Add 버튼이 있는 Toolbar를 생성할 수 있다. 하지만 Scaffold의 AppBar를 사용하는 것이 더 좋다.
@@ -76,7 +120,7 @@ class _ExpensesState extends State<Expenses> {
           // Column 안에 List가 있는 구조이기 때문에 List가 제대로 표현되지 않는다.
           // Expanded를 사용하여 전체 화면을 사용하도록 해야 한다.
           Expanded(
-            child: ExpensesList(expenses: _registeredExpenses),
+            child: mainContent,
           ),
         ],
       ),

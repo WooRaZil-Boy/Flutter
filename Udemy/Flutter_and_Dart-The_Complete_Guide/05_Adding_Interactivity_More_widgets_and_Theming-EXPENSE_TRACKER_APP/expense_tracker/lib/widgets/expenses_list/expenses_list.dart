@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 // 리스트 내부 데이터를 관리하지 않고, 외부에서 데이터를 받아서 표시만 하므로 StatelessWidget으로 구현한다.
 class ExpensesList extends StatelessWidget {
   final List<Expense> expenses;
+  // expense를 인자로 받는 함수를 가지고 있다가 해당 경우에 호출해 줘야 한다.
+  final void Function(Expense expense) onRemoveExpense;
 
   const ExpensesList({
     super.key,
     required this.expenses,
+    required this.onRemoveExpense,
   });
 
   @override
@@ -21,7 +24,20 @@ class ExpensesList extends StatelessWidget {
       itemCount: expenses.length,
       // itemBuilder로 리스트의 각 아이템을 생성한다. itemBuilder는 각 아이템이 필요한 경우에만 생성되도록 한다.
       // 컨텍스트 객체와 인덱스를 받아 Widget을 반환하며 itemCount에 따라 index를 받아서 사용한다.
-      itemBuilder: (ctx, index) => ExpenseItem(expenses[index]),
+      // Dismissible을 사용하면, 리스트의 아이템을 스와이프하여 삭제할 수 있다.
+      // key는 Widget을 식별하기 위해 사용되는데, 대부분의 경우는 Widget에서 super.key로 사용하는 것이 전부이다.
+      // 하지만 여기에서는 Dismissible을 사용하면서 삭제할 Widget을 식별하기 위해 key가 필요하다.
+      itemBuilder: (ctx, index) => Dismissible(
+        key: ValueKey(expenses[index]),
+        child: ExpenseItem(expenses[index]),
+        // onDismissed는 Dismissible이 사라질 때 호출되는 콜백이다.
+        // key, child만 있어도 시각적으로는 정상적으로 삭제된다. 하지만, 실제로는 리스트에서는 삭제되지 않아 오류가 발생한다.
+        // 따라서 내부 데이터에서도 삭제되도록, onDismissed를 구현한다.
+        onDismissed: (direction) {
+          // 스와이프 방향을 direction으로 받지만, 해당 경우에서는 사용할 필요가 없다.
+          onRemoveExpense(expenses[index]);
+        },
+      ),
     );
   }
 }
