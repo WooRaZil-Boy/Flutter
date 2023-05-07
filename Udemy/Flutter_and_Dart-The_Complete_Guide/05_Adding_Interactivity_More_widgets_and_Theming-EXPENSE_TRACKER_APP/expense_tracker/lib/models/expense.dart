@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -49,4 +50,32 @@ class Expense {
     required this.category,
     // 세미콜론 이후 초기화 목록을 추가할 수 있다. 객체가 생성될 때 값을 할당한다.
   }) : id = uuid.v4();
+}
+
+class ExpenseBucket {
+  final Category category;
+  final List<Expense> expenses;
+
+  double get totalExpenses {
+    double sum = 0;
+
+    for (final expense in expenses) {
+      sum += expense.amount; // sum = sum + expense.amount;
+    }
+    return sum;
+    
+    // fold를 사용해 아래와 같이 사용할 수도 있다.
+    // return expenses.fold(0.0, (sum, item) => sum + item.amount);
+  }
+
+  const ExpenseBucket({
+    required this.category,
+    required this.expenses,
+  });
+
+  // 또 다른 생성자를 정의한다. 지정한 카테고리에 해당하는 expense만으로 ExpenseBucket을 생성한다.
+  ExpenseBucket.forCategory(List<Expense> allExpenses, this.category) 
+    : expenses = allExpenses
+                  .where((expense) => expense.category == category)
+                  .toList();
 }

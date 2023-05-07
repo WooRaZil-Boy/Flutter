@@ -20,8 +20,14 @@ class ExpenseItem extends StatelessWidget {
         // 여러 행의 데이터를 표시해야 하므로 ListView가 필요하다. ListView는 기본적으로 스크롤 가능하다.
         // 하지만 여기서는 그리 많은 데이터가 아니므로 간단하게 Column을 사용할 수 있다.
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(expense.title),
+            Text(
+              expense.title, 
+              // context에서 theme을 가져올 수도 있다. main에서 설정한 값을 가져온다.
+              // thmem을 그대로 가져오는 것뿐 아니라, copyWith를 사용하여 또 다시 일부만 변경할 수도 있다.
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             const SizedBox(height: 4),
             Row(
               children: [

@@ -29,6 +29,16 @@ class ExpensesList extends StatelessWidget {
       // 하지만 여기에서는 Dismissible을 사용하면서 삭제할 Widget을 식별하기 위해 key가 필요하다.
       itemBuilder: (ctx, index) => Dismissible(
         key: ValueKey(expenses[index]),
+        // background는 위젯이므로 배경색을 지정해 주기 위해서는 Container에 색을 지정해 주는 식으로 구현한다.
+        // 삭제되는 것을 명확히 보여주기 위해 배경색을 추가한다.
+        // context를 사용해, Theme에 접근할 수 있다.
+        background: Container(
+          color: Theme.of(context).colorScheme.error.withOpacity(0.75),
+          // cardTheme으로 margin도 설정했기 때문에 그대로 가져와 사용할 수 있다.
+          margin: EdgeInsets.symmetric(
+            horizontal: Theme.of(context).cardTheme.margin!.horizontal
+          ),
+        ),
         child: ExpenseItem(expenses[index]),
         // onDismissed는 Dismissible이 사라질 때 호출되는 콜백이다.
         // key, child만 있어도 시각적으로는 정상적으로 삭제된다. 하지만, 실제로는 리스트에서는 삭제되지 않아 오류가 발생한다.
