@@ -32,6 +32,10 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      // bottom 뿐 아니라 top 에 대해서도 확인해 봐야 한다. 카메라나 status bar 등의 높이가 디바이스 별로 다르기 때문이다.
+      // 단순히 고정된 숫자를 넣어서 해결할 수도 있지만, safeArea를 사용하는 것이 나은 해결 방법이 있다.
+      // 위젯별로 내장된 매커니즘이 있는 경우도 있다. 예를 들어, Appbar의 경우는 자동으로 카메라나 status bar 등의 높이를 고려해서 위치를 설정한다.
+      useSafeArea: true,
       isScrollControlled: true,
       context: context,
       builder: (ctx) => NewExpense(onAddExpense: _addExpense),
@@ -83,8 +87,13 @@ class _ExpensesState extends State<Expenses> {
       );
     }
 
+    // Scaffold 위젯은 내부적으로 safeArea를 사용한다.
     return Scaffold(
       appBar: AppBar(
+        // iOS에서는 중앙정렬이 기본이지만, Android에서는 좌측정렬이 기본이다.
+        // iOS에서도 좌측정렬이 되게 하려면
+        // centerTitle: false, 를 추가해야 한다.
+        // Flutter에서는 글자 폰트도 기본값이 OS에 따라 다르다.
         title: const Text('Flutter ExpenseTracker'),
         actions: [
           IconButton(
