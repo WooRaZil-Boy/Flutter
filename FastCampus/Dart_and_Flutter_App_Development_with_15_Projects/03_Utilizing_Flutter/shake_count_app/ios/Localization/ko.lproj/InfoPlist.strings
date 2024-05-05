@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by admin on 5/5/24.
+  
+*/
+"CFBundleDisplayName" = "흔들기 카운트";
+// Info.plist의 BundleDisplay Name을 삭제하면, 이 파일의 CFBundleDisplayName를 참조하게 된다.

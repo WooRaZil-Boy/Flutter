@@ -1,0 +1,5 @@
+<!-- 안드로이드 스튜디오에서 해당 파일을 작성하면, Open Editor 메뉴를 사용해 info.plist 같은 형태로 쉽게 작성할 수 있다. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shake Count</string>
+</resources>
