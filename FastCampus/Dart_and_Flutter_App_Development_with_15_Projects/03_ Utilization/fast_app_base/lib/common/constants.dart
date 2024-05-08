@@ -1,0 +1,2 @@
+
+const basePath = 'assets/image';
