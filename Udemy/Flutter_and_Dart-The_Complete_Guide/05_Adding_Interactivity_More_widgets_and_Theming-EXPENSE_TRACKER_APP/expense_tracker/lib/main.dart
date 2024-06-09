@@ -19,6 +19,7 @@ void main() {
     MaterialApp(
       // 다크모드 색상을 지정해 준다.
       darkTheme: ThemeData.dark().copyWith(
+        // Material3이 기본으로 사용되기 때문에, 이제 더 이상 useMaterial3를 사용할 필요가 없다.
         useMaterial3: true,
         colorScheme: kDartColorScheme,
         // force unwrapping 하는 곳이 있기 때문에 동일하게 margin 값을 지정해 줘야 한다.
@@ -39,6 +40,7 @@ void main() {
       // Material3를 사용한다. 테마 설정을 위한 수 많은 매개변수들이 있다.
       // 사용자 지정 테마를 만들려면 이런 많은 매개변수에 대한 설정을 해 줘야 하는데, copyWith()를 사용하면 기존 테마를 복사하여 일부만 변경할 수 있다.
       theme: ThemeData().copyWith(
+        // Material3이 기본으로 사용되기 때문에, 이제 더 이상 useMaterial3를 사용할 필요가 없다.
         useMaterial3: true,
         // 아래와 같이 하나씩 일일히 설정할 수도 있지만 ColorScheme를 사용하여 일괄 적용 하도록 하는 것이 좋다.
         // scaffoldBackgroundColor: const Color.fromARGB(255, 220, 189, 252),

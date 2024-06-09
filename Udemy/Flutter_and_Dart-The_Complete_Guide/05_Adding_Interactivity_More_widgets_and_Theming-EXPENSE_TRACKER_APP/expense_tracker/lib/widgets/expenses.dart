@@ -118,8 +118,9 @@ class _ExpensesState extends State<Expenses> {
         children: [
           Chart(expenses: _registeredExpenses),
           // buider 함수를 간소화하고 작은 단위의 Widget으로 나누는 것이 좋다.
-          // Column 안에 List가 있는 구조이기 때문에 List가 제대로 표현되지 않는다.
-          // Expanded를 사용하여 전체 화면을 사용하도록 해야 한다.
+          // expenses가 Column을 표시하기 때문에, Column 안에 또 다른 Column이 있고 그 안에 List가 있다.
+          // Flutter는 내부 Column의 크기를 어떻게 제한 할지 모르기 때문에 리스트가 제대로 표현되지 않는다.
+          // 따라서 Expanded를 사용하여 감싸고, Expanded의 child로 내부의 Column이나 ListView가 설정되도록 해야 한다.
           Expanded(
             child: mainContent,
           ),

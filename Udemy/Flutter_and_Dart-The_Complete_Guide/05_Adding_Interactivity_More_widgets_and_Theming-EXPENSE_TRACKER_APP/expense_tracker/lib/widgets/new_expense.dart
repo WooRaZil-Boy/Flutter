@@ -48,13 +48,16 @@ class _NewExpenseState extends State<NewExpense> {
     // await를 사용하면, 지금 당장은 사용할 수 없는 값이지만, 미래에는 사용가능한 값을 반환할 수 있다.
     // Flutter는 그 값을 기다려 해당 변수에 할당한다. 따라서 이후의 코드는 해당 변수에 할당된 값을 사용할 수 있다.
     final pickedDate = await showDatePicker(
-        context: context,
-        // 시작 날짜
-        initialDate: now,
-        // min Date
-        firstDate: firstDate,
-        // max Date
-        lastDate: now);
+      context: context,
+      // 시작 날짜
+      initialDate: now,
+      // min Date
+      firstDate: firstDate,
+      // max Date
+      lastDate: now
+    );
+
+    // await를 사용하고 있기 때문에, pickedDate에 값이 할당되기 전까지는 다음 코드로 넘어가지 않는다.
 
     setState(() {
       // 사용자가 날짜를 선택하지 않고 취소하는 경우, null이 반환된다.
@@ -114,6 +117,7 @@ class _NewExpenseState extends State<NewExpense> {
     Navigator.pop(context);
   }
 
+  // State를 가진 class(StatefulWidget)만이 dispose 메서드를 가질 수 있다.
   @override
   void dispose() {
     // 하지만, TextEditingController를 사용하면, 위젯을 더 이상 사용하지 않을 때 반드시 dispose를 호출해 메모리 누수를 방지해야 한다.
@@ -212,6 +216,7 @@ class _NewExpenseState extends State<NewExpense> {
                     return;
                   }
 
+                  // 이미 null 검사를 했기 때문에, 여기서는 value가 null이 아님을 컴파일러가 알고 있다.
                   // 메서드를 사용할 수도 있지만, 여기서 바로 setState를 사용해도 된다.
                   setState(() {
                     _selectedCategory = value;
