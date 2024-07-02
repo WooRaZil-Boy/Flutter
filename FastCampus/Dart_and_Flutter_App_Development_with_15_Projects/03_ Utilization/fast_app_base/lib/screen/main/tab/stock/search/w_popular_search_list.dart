@@ -1,6 +1,8 @@
+import 'package:animations/animations.dart';
 import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/common/dart/extension/datetime_extension.dart';
 import 'package:fast_app_base/screen/main/tab/stock/search/dummy_popular_stocks.dart';
+import 'package:fast_app_base/screen/main/tab/stock/search/s_stock_detail.dart';
 import 'package:flutter/material.dart';
 
 class PopularSearchList extends StatefulWidget {
@@ -25,18 +27,29 @@ class _PopularSearchListState extends State<PopularSearchList> {
         height20,
         ...popularStocks
             // mapIndexed는 element와 index를 함께 넘겨 mapping 할 수 있다.
-            .mapIndexed((e, index) => Row(
-                  children: [
-                    (index + 1).text.bold.white.size(16).make(),
-                    width20,
-                    e.name.text.bold.white.size(16).make(),
-                    emptyExpanded,
-                    e.todayPercentageString.text
-                        .color(e.getTodayPercentageColor(context))
-                        .size(16)
-                        .make(),
-                  ],
-                ).pSymmetric(h: 20, v: 20))
+            .mapIndexed(
+              (e, index) => OpenContainer<bool>(
+                openColor: context.backgroundColor,
+                closedColor: context.backgroundColor,
+                openBuilder: (BuildContext context, VoidCallback _) {
+                  return StockDetail(stockName: e.name);
+                },
+                closedBuilder: (BuildContext context, VoidCallback action) {
+                  return Row(
+                    children: [
+                      (index + 1).text.bold.white.size(16).make(),
+                      width20,
+                      e.name.text.bold.white.size(16).make(),
+                      emptyExpanded,
+                      e.todayPercentageString.text
+                          .color(e.getTodayPercentageColor(context))
+                          .size(16)
+                          .make(),
+                    ],
+                  ).pSymmetric(h: 20, v: 20);
+                },
+              ),
+            )
             .toList()
       ],
     );
