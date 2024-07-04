@@ -1,3 +1,7 @@
+import 'dart:collection';
+
+import 'package:fast_app_base/common/common.dart';
+import 'package:fast_app_base/common/dart/extension/collection_extension.dart';
 import 'package:fast_app_base/screen/main/tab/home/banks_dummy.dart';
 import 'package:fast_app_base/screen/main/tab/home/vo/vo_bank_account.dart';
 
@@ -27,6 +31,9 @@ main() {
   //
   //print(bankSet.length);
 
+
+
+
   // Abstract class
   final dog1 = Dog();
   final dog2 = Dog();
@@ -49,24 +56,68 @@ main() {
     //   (animal as Cat).eat();
     // }
 
-    // abstract class로 선언했기 때문에, 하나의 Animal로 다룰 수 있다.
     animal.eat();
   }
+
+
+
+
+  // 삽입
+  bankAccounts.insert(1, bankAccountKakao2); // index 1에 bankAccountKakao2를 삽입한다.
+
+  // 위치 이동
+  final temp = bankAccounts.removeAt(4); // index 4의 값을 제거하면서 temp에 저장한다.
+  bankAccounts.insert(0, temp); // index 0에 temp를 삽입한다.
+
+  // 교환
+  bankAccounts.swap(0, 5); // swap이라는 함수는 따로 없기 때문에 extension을 사용하여 만들어 준다.
 
   for (final account in bankAccounts) {
     print(account.toString());
   }
 
-  // HashMap에서 putIfAbsent를 사용하면, key가 없을 때만 value를 추가한다.
-  // 제네릭을 사용할 때, T extends V 라는 식으로 사용하여, V 클래스를 특정하게 지정해 줄 수 있다.
+  // 변환
+  final banks = bankAccounts.map((account) => account.bank).toList();
+  final bankIndice = bankAccounts.mapIndexed((account, index) => account.bank).toList(); // mapIndexed는 velocityX에서 제공하는 함수이다.
+  for (final bank in banks) {
+    print(bank.toString());
+  }
 
-  //class generic
+
+
+
+  // Map, Set
+  final map = HashMap<String, BankAccount>();
+  map['ttoss'] = bankAccountToss;
+  map['kakao'] = bankAccountKakao;
+
+  if (!map.containsKey('kakao'))  {
+    map['kakao'] = bankAccountKakao2;
+  }
+
+  // putIfAbsent를 사용하면, key가 없을 때만 value를 추가한다. 즉, 위의 if문과 같은 역할을 한다.
+  map.putIfAbsent('kakao', () => bankAccountKakao2);
+
+  final ttosAccount = map['ttoss'];
+  
+  final uniqueBanks = bankAccounts.toSet(); // 중복된 값을 제거한다.
+  for (final bank in uniqueBanks) {
+    print(bank.toString());
+  }
+
+
+
+
+  // Generic
+
+  // class generic
 
   final result = doTheWork();
   final result2 = doTheWork2();
 
-  //method or function generic
+  // method or function generic
 
+  // 외부에서 생성해 주입하므로, 반환 타입을 추론 가능하다.
   final result3 = doTheWork3<Dog>(() => Dog());
   result3.eat();
 }
@@ -95,6 +146,10 @@ class Cow extends Animal {
   }
 }
 
+
+
+
+// 제네릭을 사용하여, 다양한 타입을 반환할 수 있다.
 class Result<T> {
   final T data;
 
@@ -111,12 +166,20 @@ class ResultDouble {
   final double data;
 
   ResultDouble(this.data);
-}
+} 
 
+// method generic
+// method generic은 함수명 뒤에 <T>를 붙여 사용한다.
+// 제네릭에 extends를 사용하여, 특정 타입만 받을 수 있게 할 수 있다. 즉, Animal을 상속하거나 Animal 클래스만 받을 수 있다.
 Result doTheWork3<Result extends Animal>(Result Function() animalCreator) {
-  return animalCreator();
+  // 아래와 같이 사용하면, Cat 타입이 아니라면 오류가 발생한다. as를 사용할때는 항상 조심해야 한다.
+  // return Cat() as Result;
+
+  // 외부에서 생성해서 주입하는 방법이 나은 구현이다.
+  return animalCreator(); 
 }
 
+// 반환 타입을 지정해줘서 이 함수를 사용하는 곳에서 타입을 추론할 수 있게 한다.
 Result<String> doTheWork() {
   ///...1
   ///...2
@@ -132,6 +195,9 @@ ResultDouble doTheWork2() {
   /// ..4
   return ResultDouble(5234.44);
 }
+
+
+
 
 //List
 final bankAccounts = [
